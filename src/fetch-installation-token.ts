@@ -3,12 +3,12 @@ import { createAppAuth } from "@octokit/auth-app";
 
 export const fetchInstallationToken = async ({
   appId,
-  privateKey,
   org,
+  privateKey,
 }: Readonly<{
   appId: string;
-  privateKey: string;
   org: string;
+  privateKey: string;
 }>): Promise<string> => {
   const app = createAppAuth({ appId, privateKey });
   const authApp = await app({ type: "app" });

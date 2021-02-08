@@ -17,8 +17,8 @@ const run = async () => {
 
     const installationToken = await fetchInstallationToken({
       appId,
-      privateKey,
       org,
+      privateKey,
     });
 
     setSecret(installationToken);

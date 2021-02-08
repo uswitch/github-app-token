@@ -10,20 +10,19 @@ However, for organizations, GitHub Apps are [a more appropriate automation solut
 
 ```yml
 jobs:
-  job:
-    runs-on: ubuntu-18.04
-    steps:
-      - name: Generate token
-        id: generate_token
-        uses: tibdex/github-app-token@v1
-        with:
-          app_id: ${{ secrets.APP_ID }}
-          private_key: ${{ secrets.PRIVATE_KEY }}
-          # Optional (defaults to the current repository).
-          # repository: owner/repo
-      - name: Use token
-        env:
-          TOKEN: ${{ steps.generate_token.outputs.token }}
-        run: |
-          echo "The generated token is masked: ${TOKEN}"
+    job:
+        runs-on: ubuntu-18.04
+        steps:
+            - name: Generate token
+              id: generate_token
+              uses: tibdex/github-app-token@v1
+              with:
+                  app_id: ${{ secrets.APP_ID }}
+                  private_key: ${{ secrets.PRIVATE_KEY }}
+                  org: myorg
+            - name: Use token
+              env:
+                  TOKEN: ${{ steps.generate_token.outputs.token }}
+              run: |
+                  echo "The generated token is masked: ${TOKEN}"
 ```
