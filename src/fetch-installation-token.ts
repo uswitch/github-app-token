@@ -3,21 +3,20 @@ import { createAppAuth } from "@octokit/auth-app";
 
 export const fetchInstallationToken = async ({
   appId,
-  owner,
   privateKey,
-  repo,
+  org,
 }: Readonly<{
   appId: string;
-  owner: string;
   privateKey: string;
-  repo: string;
+  org: string;
 }>): Promise<string> => {
   const app = createAppAuth({ appId, privateKey });
   const authApp = await app({ type: "app" });
   const octokit = getOctokit(authApp.token);
+
   const {
     data: { id: installationId },
-  } = await octokit.apps.getRepoInstallation({ owner, repo });
+  } = await octokit.apps.getOrgInstallation({ org });
   const installation = await app({ installationId, type: "installation" });
   return installation.token;
 };
